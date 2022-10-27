@@ -13,11 +13,11 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack{
-                TextField("Email", text: $loginViewModel.userEmail).keyboardType(.emailAddress)
-                SecureField("Password", text: $loginViewModel.userPassword)
+                TextField("Email", text: $loginViewModel.loginDataModel.userEmail).keyboardType(.emailAddress)
+                SecureField("Password", text: $loginViewModel.loginDataModel.userPassword)
                 
                 NavigationLink(destination: HomeView(),
-                               isActive: $loginViewModel.navigate) {
+                               isActive: $loginViewModel.loginDataModel.navigate) {
                     Button (action: {
                         
                         if loginViewModel.validateUserInput(){
@@ -25,9 +25,9 @@ struct ContentView: View {
                         
                     },label: {
                         Text("LOGIN")
-                      }).alert(isPresented: $loginViewModel.isPresentingErrorAlert,
+                    }).alert(isPresented: $loginViewModel.loginDataModel.isPresentingErrorAlert,
                                content: {
-                                Alert(title: Text("Alert"), message:Text(loginViewModel.errorMessage),
+                        Alert(title: Text("Alert"), message:Text(loginViewModel.loginDataModel.errorMessage),
                                 dismissButton: .cancel(Text("OK")))
                         })
                      }
